@@ -273,28 +273,6 @@ resources:
                   - ip_netmask: 0.0.0.0/0
                     next_hop:
                       get_param: ExternalInterfaceDefaultRoute
-              - type: ovs_bridge
-                name: mlx_br1
-                mtu:
-                  get_param: DefaultBondMTU
-                members:
-                - type: interface
-                  name:
-                    get_param: ControllerSriovInterface1
-                  mtu:
-                    get_param: DefaultBondMTU
-                  use_dhcp: false
-              - type: ovs_bridge
-                name: mlx_br2
-                mtu:
-                  get_param: DefaultBondMTU
-                members:
-                - type: interface
-                  name:
-                    get_param: ControllerSriovInterface2
-                  mtu:
-                    get_param: DefaultBondMTU
-                  use_dhcp: false
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.

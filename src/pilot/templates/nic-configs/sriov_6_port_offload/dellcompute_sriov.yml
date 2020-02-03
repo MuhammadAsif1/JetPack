@@ -73,10 +73,6 @@ parameters:
   EC2MetadataIp: # Override this via parameter_defaults
     description: The IP address of the EC2 metadata server.
     type: string
-  ComputeProvisioningInterface:
-    default: em3
-    description: Provisioning interface name
-    type: string
   ComputeBond0Interface1:
     default: em1
     description: Bond 0 interface 1 name
@@ -149,9 +145,8 @@ resources:
           params:
             $network_config:
               network_config:
-              - type: interface
-                name:
-                  get_param: ComputeProvisioningInterface
+              - type: ovs_bridge
+                name: br-tenant
                 mtu:
                   get_param: ProvisioningNetworkMTU
                 use_dhcp: false
@@ -170,10 +165,6 @@ resources:
                 - default: true
                   next_hop:
                     get_param: ControlPlaneDefaultRoute
-              - type: ovs_bridge
-                name: br-tenant
-                mtu:
-                  get_param: DefaultBondMTU
                 members:
                 - type: linux_bond
                   name: bond0
@@ -214,7 +205,7 @@ resources:
                     mtu:
                       get_param: DefaultBondMTU
                     use_dhcp: false
-                    primary: true                
+                    primary: true
                 - type: vlan
                   device: bond0
                   vlan_id:
@@ -270,3 +261,4 @@ outputs:
     description: The OsNetConfigImpl resource.
     value:
       get_resource: OsNetConfigImpl
+      

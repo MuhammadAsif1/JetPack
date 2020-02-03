@@ -58,8 +58,3 @@ parameter_defaults:
   ComputeSriovInterface1: p1p1
   ComputeSriovInterface2: p4p1
 
-  # CHANGEME: Change the interface names in the following lines for the
-  # controller nodes interfaces and include in the bridges
-  # for DHCP server communication
-  ControllerSriovInterface1: p1p2
-  ControllerSriovInterface2: p4p2
